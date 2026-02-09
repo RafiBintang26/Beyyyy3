@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Valentine Scrapbook</title>
+    <style>
+        body {
+            margin: 0;
+            background-color: #FFB5B5; /* PINK SOFT */
+            font-family: 'Courier New', Courier, monospace;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+            padding: 40px 20px;
+        }
+
+        /* Bingkai Foto Hati Utama */
+        .photo-container {
+            position: relative;
+            width: 300px;
+            height: 300px;
+            background: #fff;
+            padding: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            clip-path: path('M150 280 C150 280 10 180 10 100 A60 60 0 0 1 130 60 A60 60 0 0 1 290 100 C290 180 150 280 150 280 Z');
+            transform: rotate(-3deg);
+            margin-bottom: 40px;
+            transition: transform 0.3s;
+        }
+
+        .photo-container:hover {
+            transform: rotate(0deg) scale(1.05);
+        }
+
+        .photo-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            clip-path: inherit;
+        }
+
+        /* Pesan Potongan Kertas */
+        .message-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 8px;
+            max-width: 700px;
+        }
+
+        .note {
+            background: #fdfdfd;
+            padding: 6px 12px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            box-shadow: 2px 2px 0px rgba(0,0,0,0.2);
+            border: 1px solid #ddd;
+        }
+
+        /* Stiker Interaktif */
+        .interactive-sticker {
+            position: fixed;
+            pointer-events: none;
+            font-size: 2rem;
+            z-index: 100;
+            animation: popOut 0.8s ease-out forwards;
+        }
+
+        @keyframes popOut {
+            0% { transform: scale(0) rotate(0deg); opacity: 1; }
+            100% { transform: scale(1.5) rotate(20deg); opacity: 0; }
+        }
+
+        .arrow-link {
+            margin-top: 50px;
+            text-decoration: none;
+            color: #7a1f2b;
+            font-size: 3rem;
+            animation: bounce 1.5s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+    </style>
+</head>
+<body onmousemove="spawnSticker(event)">
+
+    <div class="photo-container">
+        <img src="foto-kamu.jpg" alt="Foto Valentine Kita">
+    </div>
+
+    <div class="message-grid">
+        <div class="note" style="transform: rotate(2deg)">I</div>
+        <div class="note" style="transform: rotate(-3deg); color: red;">❤️</div>
+        <div class="note" style="transform: rotate(1deg)">love</div>
+        <div class="note" style="transform: rotate(-2deg)">you</div>
+        <div class="note" style="transform: rotate(3deg)">even</div>
+        <div class="note" style="transform: rotate(-1deg)">when</div>
+        <div class="note" style="transform: rotate(2deg)">you</div>
+        <div class="note" style="transform: rotate(-3deg)">are</div>
+        <div class="note" style="transform: rotate(1deg)">not</div>
+        <div class="note" style="transform: rotate(-2deg)">at</div>
+        <div class="note" style="transform: rotate(3deg)">your</div>
+        <div class="note" style="transform: rotate(-1deg)">best,</div>
+        <div class="note" style="transform: rotate(2deg)">sad</div>
+        <div class="note" style="transform: rotate(-3deg)">and</div>
+        <div class="note" style="transform: rotate(1deg)">feel</div>
+        <div class="note" style="transform: rotate(-2deg)">like</div>
+        <div class="note" style="transform: rotate(3deg)">no</div>
+        <div class="note" style="transform: rotate(-1deg)">one</div>
+        <div class="note" style="transform: rotate(2deg)">cares</div>
+        <div class="note" style="transform: rotate(-3deg)">or</div>
+        <div class="note" style="transform: rotate(1deg)">loves</div>
+        <div class="note" style="transform: rotate(-2deg)">you.</div>
+    </div>
+
+    <a href="https://val-6.vercel.app" class="arrow-link">↑</a>
+
+    <script>
+        const stickers = ['🧸','🎀','🍭','💖','💌','🍓','✨','🐾','🌹'];
+        let lastX = 0;
+        let lastY = 0;
+
+        function spawnSticker(e) {
+            if (Math.abs(e.clientX - lastX) > 100 || Math.abs(e.clientY - lastY) > 100) {
+                const s = document.createElement('div');
+                s.className = 'interactive-sticker';
+                s.innerText = stickers[Math.floor(Math.random() * stickers.length)];
+                s.style.left = e.clientX + 'px';
+                s.style.top = e.clientY + 'px';
+                document.body.appendChild(s);
+
+                lastX = e.clientX;
+                lastY = e.clientY;
+
+                setTimeout(() => s.remove(), 800);
+            }
+        }
+    </script>
+
+</body>
+</html>
